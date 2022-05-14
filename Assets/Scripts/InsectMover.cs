@@ -7,7 +7,7 @@ public class InsectMover : MonoBehaviour
     public Vector2 destination, offscreenDestination;
     public float speed;
     int distanceFromDestination;
-
+    public bool moving = true;
     private void Start()
     {
         float distanceFromDestination = transform.position.x - destination.x;
@@ -16,13 +16,11 @@ public class InsectMover : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position,
+        if (moving)
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
             offscreenDestination,
             speed * Time.deltaTime);
-
-        if(Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(destination.x))
-        {
-
         }
     }
 }

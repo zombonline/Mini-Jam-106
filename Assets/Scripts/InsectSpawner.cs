@@ -42,8 +42,6 @@ public class InsectSpawner : MonoBehaviour
             destinationsUsed.Add(randomDestinationInLane);
 
             
-            Debug.Log(insects[Random.RandomRange(0, insects.Length)].name + " + " + "Destination: " + lane.name + lane.GetChild(randomDestinationInLane).name);
-
           InsectMover newInsect = Instantiate(insects[Random.Range(0, insects.Length)], transform.position, Quaternion.identity);
             newInsect.transform.position = new Vector2(
                 lane.GetChild(randomDestinationInLane).transform.position.x + RandomPositiveOrNegative() * 10f,

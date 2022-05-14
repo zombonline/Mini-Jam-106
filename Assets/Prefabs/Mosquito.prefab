@@ -49,6 +49,7 @@ MonoBehaviour:
   destination: {x: 0, y: 0}
   offscreenDestination: {x: 0, y: 0}
   speed: 0
+  moving: 1
 --- !u!61 &5611633484426733536
 BoxCollider2D:
   m_ObjectHideFlags: 0

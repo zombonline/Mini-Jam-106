@@ -8,8 +8,12 @@ public class Tongue : MonoBehaviour
     {
         if(collision.GetComponent<InsectMover>())
         {
-            Debug.Log("Tongue punched " + collision.name);
-            Destroy(collision.gameObject);
+            FindObjectOfType<GameCanvas>().score += 100;
+            FindObjectOfType<GameCanvas>().Hit(collision.transform.position);
+
+            collision.GetComponent<InsectMover>().moving = false;
+            collision.transform.parent = this.transform;
+            Destroy(collision.gameObject, 1f);
         }
     }
 }
