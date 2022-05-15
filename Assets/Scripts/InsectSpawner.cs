@@ -7,29 +7,57 @@ public class InsectSpawner : MonoBehaviour
     [SerializeField] InsectMover[] insects;
 
     [SerializeField] Transform[] lanes;
-    [SerializeField] float speed = 1f;
+    [SerializeField] float beginSpawnCooldown = 2f;
+    float spawnCooldown;
+    [SerializeField] float beginSpeed = 1f;
+    float speed;
+    bool spawning = false;
+
+    public void ResetSpawner()
+    {
+        speed = beginSpeed;
+        spawnCooldown = beginSpawnCooldown;
+        spawning = true;
+        StartCoroutine(SpawnCoroutine());
+    }
+
+    public void StopSpawning()
+    {
+        spawning = false;
+    }
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnInsects), 1f, 1.5f);
+        StartCoroutine(SpawnCoroutine());
+
     }
-    private void Update()
+
+    IEnumerator SpawnCoroutine()
     {
-        
-        if(Input.GetKeyDown(KeyCode.E))
+        while(spawning)
         {
             SpawnInsects();
+            yield return new WaitForSeconds(spawnCooldown);
+            speed += 0.2f;
+            spawnCooldown -= 0.05f;
+            if(spawnCooldown < 1f)
+            {
+                spawnCooldown = 1f;
+            }
         }
     }
 
     void SpawnInsects()
     {
-        var amountToSpawn = Random.Range(0, 4);
+        if(!spawning || FindObjectOfType<Clock>().timeRemaining < 2f)
+        {
+            return;
+        }
+        var amountToSpawn = Random.Range(1, 5);
+        Debug.Log(amountToSpawn);
         var lane = lanes[Random.Range(0, lanes.Length)];
         List<int> destinationsUsed = new List<int>();
 
-        //set insect y pos to desination y pos
-        //set insect x pos as one of two random sides of the screen
         for(int i = 0; i < amountToSpawn; i++)
         {
             int randomDestinationInLane = Random.Range(0, lane.childCount);
@@ -49,7 +77,7 @@ public class InsectSpawner : MonoBehaviour
 
             newInsect.destination = lane.GetChild(randomDestinationInLane).position;
             newInsect.speed = speed;
-          
+            Destroy(newInsect, 10f);
         }
     }
 

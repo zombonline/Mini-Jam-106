@@ -133,6 +133,7 @@ MonoBehaviour:
   offscreenDestination: {x: 0, y: 0}
   speed: 0
   moving: 1
+  spriteRenderer: {fileID: 7398382538461888083}
 --- !u!61 &5408611675534637747
 BoxCollider2D:
   m_ObjectHideFlags: 0

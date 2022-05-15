@@ -11,11 +11,19 @@ public class TonguePuncher : MonoBehaviour
 
     [SerializeField] float cooldownTime = 0.5f;
     float cooldownValue;
-
+    bool controlsLocked = true;
     private void Update()
     {
+        if (!controlsLocked)
+        {
+            AimTongue();
+        }
         cooldownValue -= Time.deltaTime;
-        AimTongue();
+    }
+
+    public void ToggleControls(bool state)
+    {
+        controlsLocked = state;
     }
 
     public void FinishAttack()

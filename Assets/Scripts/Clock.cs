@@ -7,9 +7,17 @@ using UnityEngine.UI;
 public class Clock : MonoBehaviour
 {
     [SerializeField] float maxTime, unlockedTime;
-    float timeRemaining;
+    public float timeRemaining;
     [SerializeField] Image unlockedTimeImage, clockArmImage;
     [SerializeField] UnityEvent timeUp;
+    bool clockMoving = false;
+
+    public void ResetClock()
+    {
+        timeRemaining = unlockedTime;
+        clockMoving = true;
+
+    }
     private void Awake()
     {
         timeRemaining = unlockedTime;
@@ -19,14 +27,15 @@ public class Clock : MonoBehaviour
         unlockedTimeImage.fillAmount = unlockedTime / maxTime;
 
         clockArmImage.rectTransform.eulerAngles = new Vector3(0, 0, -((timeRemaining / maxTime) * 360));
-        if (timeRemaining > 0)
+        if (clockMoving)
         {
             timeRemaining -= Time.deltaTime;
         }
-        else if(timeRemaining < 0)
+        if(timeRemaining <= 0 && clockMoving)
         {
             timeUp.Invoke();
             timeRemaining = 0;
+            clockMoving = false;
         }
     }
 
