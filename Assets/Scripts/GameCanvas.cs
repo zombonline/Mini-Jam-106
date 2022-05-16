@@ -43,7 +43,7 @@ public class GameCanvas : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = score.ToString("0000");
+        scoreText.text = score.ToString("00000");
     }
     public void ReloadLevel()
     {
@@ -90,8 +90,8 @@ public class GameCanvas : MonoBehaviour
         {
             PlayerPrefs.SetInt("High Score", score);
         }
-        finalScoreText.text = "Score: " + score.ToString("0000");
-        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("High Score").ToString("0000");
+        finalScoreText.text = "Score: " + score.ToString("00000");
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("High Score").ToString("00000");
 
     }
     public void CloseFinishBox()

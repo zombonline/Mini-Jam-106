@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7800
+  m_text: 00000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dafff5ddd77581647ac63340ad1fce09, type: 2}
   m_sharedMaterial: {fileID: 7812217591870423757, guid: dafff5ddd77581647ac63340ad1fce09, type: 2}
@@ -4215,7 +4215,7 @@ MonoBehaviour:
   - {fileID: 260420171}
   - {fileID: 362403228}
   - {fileID: 368715422}
-  score: 500
+  score: 0
   gameStarted:
     m_PersistentCalls:
       m_Calls:
