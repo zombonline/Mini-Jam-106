@@ -10,6 +10,7 @@ public class TonguePuncher : MonoBehaviour
     bool canRotate = true;
 
     [SerializeField] float cooldownTime = 0.5f;
+    [SerializeField] AudioClip[] attackSFX;
     float cooldownValue;
     bool controlsLocked = true;
     private void Update()
@@ -39,21 +40,24 @@ public class TonguePuncher : MonoBehaviour
     {
         if (canRotate && cooldownValue < 0)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
+                AudioSource.PlayClipAtPoint(attackSFX[Random.Range(0,attackSFX.Length)], Camera.main.transform.position, GameCanvas.volume);
                     canRotate = false;
                     tongueAim.transform.eulerAngles = new Vector3(0, 0, 17);
                     GetComponent<Animator>().SetBool("Attack", true);
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
+                AudioSource.PlayClipAtPoint(attackSFX[Random.Range(0, attackSFX.Length)], Camera.main.transform.position, GameCanvas.volume);
                 canRotate = false;
                     tongueAim.transform.eulerAngles = new Vector3(0, 0, 0);
                     GetComponent<Animator>().SetBool("Attack", true);
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
+                AudioSource.PlayClipAtPoint(attackSFX[Random.Range(0, attackSFX.Length)], Camera.main.transform.position, GameCanvas.volume);
                 canRotate = false;
                     tongueAim.transform.eulerAngles = new Vector3(0, 0, 343);
                     GetComponent<Animator>().SetBool("Attack", true);

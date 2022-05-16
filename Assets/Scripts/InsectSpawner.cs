@@ -13,6 +13,8 @@ public class InsectSpawner : MonoBehaviour
     float speed;
     bool spawning = false;
 
+    [SerializeField] List<int> amountToSpawn = new List<int>();
+
     public void ResetSpawner()
     {
         speed = beginSpeed;
@@ -53,12 +55,11 @@ public class InsectSpawner : MonoBehaviour
         {
             return;
         }
-        var amountToSpawn = Random.Range(1, 5);
-        Debug.Log(amountToSpawn);
+        var amountToSpawnindex = Random.Range(0, amountToSpawn.Count);
         var lane = lanes[Random.Range(0, lanes.Length)];
         List<int> destinationsUsed = new List<int>();
 
-        for(int i = 0; i < amountToSpawn; i++)
+        for(int i = 0; i < amountToSpawn[amountToSpawnindex]; i++)
         {
             int randomDestinationInLane = Random.Range(0, lane.childCount);
             do
@@ -77,8 +78,8 @@ public class InsectSpawner : MonoBehaviour
 
             newInsect.destination = lane.GetChild(randomDestinationInLane).position;
             newInsect.speed = speed;
-            Destroy(newInsect, 10f);
         }
+        amountToSpawn.Remove(amountToSpawnindex);
     }
 
     int RandomPositiveOrNegative()

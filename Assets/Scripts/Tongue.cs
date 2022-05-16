@@ -13,7 +13,7 @@ public class Tongue : MonoBehaviour
 
             collision.GetComponent<InsectMover>().moving = false;
             collision.transform.parent = this.transform;
-            Destroy(collision.gameObject, 1f);
+            Destroy(collision.gameObject, 0.5f);
         }
     }
 }

@@ -14,6 +14,13 @@ public class InsectMover : MonoBehaviour
     {
         float distanceFromDestination = transform.position.x - destination.x;
         offscreenDestination = new Vector2(-transform.position.x, destination.y);
+        Destroy(this.gameObject, 10f);
+
+        if(transform.position.x < destination.x)
+        {
+            var scale = spriteRenderer.transform.localScale;
+            spriteRenderer.transform.localScale = new Vector3(-scale.x, scale.y, scale.z);
+        }
     }
 
     private void Update()
@@ -25,7 +32,7 @@ public class InsectMover : MonoBehaviour
             speed * Time.deltaTime);
         }
 
-        if(Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(destination.x) && !onTargetAnimationPlayed)
+        if(Mathf.Abs(transform.position.x - destination.x) < 0.1f && !onTargetAnimationPlayed)
         {
             onTargetAnimationPlayed = true;
             StartCoroutine(OnTargetCoroutine());

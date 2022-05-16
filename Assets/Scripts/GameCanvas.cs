@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameCanvas : MonoBehaviour
 {
@@ -12,11 +14,58 @@ public class GameCanvas : MonoBehaviour
     [SerializeField] UnityEvent gameStarted;
     [SerializeField] GameObject startBox, finishBox;
 
+    [SerializeField] Image audioIcon;
+    [SerializeField] Sprite audioOff, audioOn;
+    public static float volume;
+    [SerializeField] AudioSource ambientAudio;
+
+
+    private void Start()
+    {
+        if(!PlayerPrefs.HasKey("Volume"))
+        {
+            PlayerPrefs.SetFloat("Volume", 1f);
+
+        }
+        if(PlayerPrefs.GetFloat("Volume") == 1f)
+        {
+            audioIcon.sprite = audioOn;
+        }
+        else
+        {
+            audioIcon.sprite = audioOff;
+
+        }
+        volume = PlayerPrefs.GetFloat("Volume");
+        ambientAudio.volume = volume;
+
+    }
+
     private void Update()
     {
         scoreText.text = score.ToString("0000");
     }
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
 
+    public void ToggleAudio()
+    {
+        if(PlayerPrefs.GetFloat("Volume") == 1f)
+        {
+            PlayerPrefs.SetFloat("Volume", 0f);
+            audioIcon.sprite = audioOff;
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Volume", 1f);
+            audioIcon.sprite = audioOn;
+
+        }
+        volume = PlayerPrefs.GetFloat("Volume");
+        ambientAudio.volume = volume;
+    }
     public void Hit(Vector2 position)
     {
         bool textEnabled = false;
